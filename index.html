@@ -7,30 +7,53 @@
     <link rel="stylesheet" href="styles/normalize.css" />
     <link rel="stylesheet" href="styles/style.css" />
     <script src="script.js" defer></script>
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="container">
       <h1>Tic Tac Toe</h1>
       <div id="start-page">
-        <input type="text" id="player-one" placeholder="Player 1" autofocus />
-        <input type="text" id="player-two" placeholder="Player 2" />
-        <button type="button" id="start-button" data-button="start">
+        <input
+          type="text"
+          id="player-one"
+          placeholder="Player one name (optional)"
+          autofocus
+          maxlength="10"
+        />
+        <input
+          type="text"
+          id="player-two"
+          placeholder="Player two name (optional)"
+          maxlength="10"
+        />
+        <button
+          type="button"
+          id="start-button"
+          class="button"
+          data-button="start"
+        >
           Start
         </button>
       </div>
-      <div id="game-page" class="hidden">
-        <h2 id="turn-message"></h2>
-        <h2 id="result-message" class="hidden"></h2>
+      <div id="game-page" class="none">
+        <p id="message"></p>
         <div id="gameboard"></div>
+        <button
+          type="button"
+          id="restart-button"
+          class="button hidden"
+          data-button="restart"
+        >
+          Play again
+        </button>
       </div>
-      <button
-        type="button"
-        id="restart-button"
-        class="hidden"
-        data-button="restart"
-      >
-        Restart
-      </button>
     </div>
   </body>
 </html>

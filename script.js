@@ -145,8 +145,7 @@ const screenController = (() => {
   const startButton = document.querySelector("#start-button");
 
   const gamePage = document.querySelector("#game-page");
-  const turnMessage = document.querySelector("#turn-message");
-  const resultMessage = document.querySelector("#result-message");
+  const message = document.querySelector("#message");
   const gameboardDiv = document.querySelector("#gameboard");
   const restartButton = document.querySelector("#restart-button");
 
@@ -156,7 +155,10 @@ const screenController = (() => {
     const board = Gameboard.getBoard();
     const activePlayerName = gameController.getActivePlayer().name;
 
-    turnMessage.textContent = `${activePlayerName}'s turn`;
+    if (!endGame) {
+      message.textContent = `${activePlayerName}'s turn`;
+    } else {
+    }
 
     board.forEach((row, rowIndex) => {
       row.forEach((cell, columnIndex) => {
@@ -185,14 +187,16 @@ const screenController = (() => {
   const restartGame = () => {
     endGame = false;
     Gameboard.resetBoard();
-    toggleDisplay(resultMessage);
-    toggleDisplay(turnMessage);
-    toggleDisplay(restartButton);
+    toggleVisibility(restartButton);
     renderBoard();
   };
 
-  function toggleDisplay(element) {
+  function toggleVisibility(element) {
     element.classList.toggle("hidden");
+  }
+
+  function toggleDisplay(element) {
+    element.classList.toggle("none");
   }
 
   function clickHandler(event) {
@@ -213,10 +217,10 @@ const screenController = (() => {
       // Win or draw
       if (result) {
         endGame = true;
-        resultMessage.textContent = result;
-        toggleDisplay(turnMessage);
-        toggleDisplay(resultMessage);
-        toggleDisplay(restartButton);
+        message.textContent = result;
+        setTimeout(() => {
+          toggleVisibility(restartButton);
+        }, 1000);
       }
       renderBoard();
     }
