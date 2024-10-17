@@ -102,7 +102,7 @@ const gameController = (() => {
     }
   };
 
-  const checkForTie = () => {
+  const checkForDraw = () => {
     const availableCells = [];
     for (let i = 0; i < boardSize; i++) {
       for (let j = 0; j < boardSize; j++) {
@@ -128,8 +128,8 @@ const gameController = (() => {
       return `${getActivePlayer().name} won!`;
     }
 
-    if (checkForTie()) {
-      return "It's a tie!";
+    if (checkForDraw()) {
+      return "It's a draw!";
     }
 
     switchPlayerTurn();
@@ -142,13 +142,13 @@ const screenController = (() => {
   const startPage = document.querySelector("#start-page");
   const playerOne = document.querySelector("#player-one");
   const playerTwo = document.querySelector("#player-two");
+  const startButton = document.querySelector("#start-button");
 
   const gamePage = document.querySelector("#game-page");
   const turnMessage = document.querySelector("#turn-message");
-  const gameboardDiv = document.querySelector("#gameboard");
-
-  const restartPage = document.querySelector("#restart-page");
   const resultMessage = document.querySelector("#result-message");
+  const gameboardDiv = document.querySelector("#gameboard");
+  const restartButton = document.querySelector("#restart-button");
 
   const renderBoard = () => {
     gameboardDiv.textContent = "";
@@ -171,6 +171,8 @@ const screenController = (() => {
     });
   };
 
+  let endGame = false;
+
   const startGame = () => {
     if (playerOne.value && playerTwo.value) {
       gameController.updatePlayerName(playerOne.value, playerTwo.value);
@@ -181,9 +183,11 @@ const screenController = (() => {
   };
 
   const restartGame = () => {
+    endGame = false;
     Gameboard.resetBoard();
-    toggleDisplay(restartPage);
-    toggleDisplay(gamePage);
+    toggleDisplay(resultMessage);
+    toggleDisplay(turnMessage);
+    toggleDisplay(restartButton);
     renderBoard();
   };
 
@@ -200,24 +204,24 @@ const screenController = (() => {
       restartGame();
     }
 
-    if (event.target.classList.contains("cell")) {
+    if (event.target.classList.contains("cell") && !endGame) {
       const row = event.target.dataset.row;
       const column = event.target.dataset.column;
       let result = null;
       result = gameController.playRound(row, column);
 
-      // Win or tie
+      // Win or draw
       if (result) {
+        endGame = true;
         resultMessage.textContent = result;
-        toggleDisplay(gamePage);
-        toggleDisplay(restartPage);
+        toggleDisplay(turnMessage);
+        toggleDisplay(resultMessage);
+        toggleDisplay(restartButton);
       }
       renderBoard();
     }
   }
 
-  const startButton = document.querySelector("#start-button");
   startButton.addEventListener("click", clickHandler);
-  const restartButton = document.querySelector("#restart-button");
   restartButton.addEventListener("click", clickHandler);
 })();

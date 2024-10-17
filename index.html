@@ -4,14 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles/normalize.css" />
+    <link rel="stylesheet" href="styles/style.css" />
     <script src="script.js" defer></script>
   </head>
   <body>
     <div class="container">
       <h1>Tic Tac Toe</h1>
       <div id="start-page">
-        <input type="text" id="player-one" placeholder="Player 1" />
+        <input type="text" id="player-one" placeholder="Player 1" autofocus />
         <input type="text" id="player-two" placeholder="Player 2" />
         <button type="button" id="start-button" data-button="start">
           Start
@@ -19,14 +20,17 @@
       </div>
       <div id="game-page" class="hidden">
         <h2 id="turn-message"></h2>
+        <h2 id="result-message" class="hidden"></h2>
         <div id="gameboard"></div>
       </div>
-      <div id="restart-page" class="hidden">
-        <h2 id="result-message"></h2>
-        <button type="button" id="restart-button" data-button="restart">
-          Restart
-        </button>
-      </div>
+      <button
+        type="button"
+        id="restart-button"
+        class="hidden"
+        data-button="restart"
+      >
+        Restart
+      </button>
     </div>
   </body>
 </html>
