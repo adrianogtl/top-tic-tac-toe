@@ -50,7 +50,7 @@ const gameController = (() => {
 
   const board = Gameboard.getBoard();
   const boardSize = Gameboard.getBoardSize();
-  let players = [new Player("Player one", "X"), new Player("Player two", "O")];
+  let players = [new Player("X", "X"), new Player("O", "O")];
 
   const updatePlayerName = (playerOneName, playerTwoName) => {
     players[0].name = playerOneName;
